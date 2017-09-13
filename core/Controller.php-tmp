@@ -9,7 +9,7 @@ class controller {
 
 		$this->language = new Language();
 	}
-	
+
 	public function loadView($viewName, $viewData = array()) {
 		extract($viewData);
 		include 'views/'.$viewName.'.php';
