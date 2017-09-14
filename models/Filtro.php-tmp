@@ -1,0 +1,17 @@
+<?php
+class Filters extends model {
+
+	public function getFilters() {
+
+		$array = array();
+
+		$sql = "SELECT * FROM brands";
+		$sql = $this->db->prepare($sql);
+		$sql->execute();
+
+		if ($sql->rowCount() > 0) {
+			$array = $sql->fetchAll();
+		}
+
+		return $array;
+	}

@@ -316,12 +316,15 @@ footer h3 {
 }
 .product_tag_red{
 	background-color: #F8484A;
+	text-transform: uppercase;
 }
 .product_tag_green{
 	background-color: #59B210;
+	text-transform: uppercase;
 }
 .product_tag_blue{
 	background-color: #407AC5;
+	text-transform: uppercase;
 }
 .product_name{
 	font-weight: bold;
@@ -363,4 +366,27 @@ footer h3 {
 }
 .paginationArea{
 	margin-top: 30px;
+}
+.dropdown-toggle{
+	width: 100%;
+}
+.filterbox{
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+.filtertitle{
+	color: #59b210;
+	font-size: 17px;
+	font-weight: bold;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #EEE;
+}
+.filteritem{
+	height: 25px;
+	font-size: 12px;
+}
+.filteritem label{
+	font-weight: normal;
 }

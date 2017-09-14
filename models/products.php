@@ -1,12 +1,32 @@
 <?php 
 	class Products extends model{
 
-		public function getList($offset = 0, $limit = 3){
+		public function getList($offset = 0, $limit = 3, $filters = array()){
 
 			$array = array();
 
-			$sql = "SELECT * FROM products LIMIT $offset, $limit";
+			$where = array(
+				'1=1'
+			);
+
+			if(!empty($filters['category'])){
+				$where[] = "id_category = :id_category";
+			}
+
+			$sql = "SELECT 
+							* 
+					FROM 
+							products 
+					WHERE	
+							".implode(' AND ', $where)." 
+					LIMIT 
+							$offset, $limit";
 			$sql = $this->db->prepare($sql);
+
+			if(!empty($filters['category'])){
+				$sql->bindValue("id_category", $filters['category']);
+			}
+			
 			$sql->execute();
 
 			if($sql->rowCount() > 0){
@@ -25,6 +45,21 @@
 			return $array;
 		}
 
+		public function getListOfBrands(){
+
+			$array = array();
+
+			$sql = "SELECT id_brand, count(*) as c FROM products GROUP BY id_brand";
+			$sql = $this->db->prepare($sql);
+			$sql->execute();
+
+			if($sql->rowCount() > 0){
+				$array = $sql->fetchAll();
+			}
+
+			return $array;			
+		}
+
 		public function getImagesByProductId($id_produto){
 
 			$array = array();
@@ -41,10 +76,28 @@
 			return $array;
 		}
 
-		public function getTotal(){
+		public function getTotal($filters = array()){
 
-			$sql = "SELECT COUNT(*) as quantidade FROM products";
+			$where = array(
+				'1=1'
+			);
+
+			if(!empty($filters['category'])){
+				$where[] = "id_category = :id_category";
+			}
+
+			$sql = "SELECT 
+							COUNT(*) as quantidade 
+					FROM 
+							products
+					WHERE 
+							".implode(' AND ', $where);
 			$sql = $this->db->prepare($sql);
+
+			if(!empty($filters['category'])){
+				$sql->bindValue("id_category", $filters['category']);
+			}
+
 			$sql->execute();
 			$sql = $sql->fetch();
 
