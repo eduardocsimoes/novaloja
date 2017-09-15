@@ -14,6 +14,8 @@ class homeController extends controller {
         $categories = new categories();
         $filters = new Filters();
 
+        $filters = array();
+
         $currentPage = 1;
         $offset = 0;
         $limit = 3;
@@ -34,5 +36,4 @@ class homeController extends controller {
 
         $this->loadTemplate('home', $dados);
     }
-
 }

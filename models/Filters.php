@@ -25,6 +25,10 @@
 						$array['brands'][$bkey]['count'] = $bproduct['c'];
 					}
 				}
+
+				if($array['brands']['$bkey']['count'] == '0'){
+					unset($array['brands'][$bkey]);
+				}
 			}
 
 			return $array;

@@ -5,13 +5,7 @@
 
 			$array = array();
 
-			$where = array(
-				'1=1'
-			);
-
-			if(!empty($filters['category'])){
-				$where[] = "id_category = :id_category";
-			}
+			$where = $this->buildWhere($filters);
 
 			$sql = "SELECT 
 							* 
@@ -23,9 +17,7 @@
 							$offset, $limit";
 			$sql = $this->db->prepare($sql);
 
-			if(!empty($filters['category'])){
-				$sql->bindValue("id_category", $filters['category']);
-			}
+			$this->bindWhere($filters, $sql);
 			
 			$sql->execute();
 
@@ -45,12 +37,24 @@
 			return $array;
 		}
 
-		public function getListOfBrands(){
+		public function getListOfBrands($filters = array()){
 
 			$array = array();
 
-			$sql = "SELECT id_brand, count(*) as c FROM products GROUP BY id_brand";
+			$where = $this->buildWhere($filters);
+
+			$sql = "SELECT 
+							id_brand, 
+							count(*) as c 
+					FROM 
+							products 
+					WHERE 
+							".implode(' AND ', $where)."
+					GROUP BY id_brand";
 			$sql = $this->db->prepare($sql);
+
+			$this->bindWhere($filters, $sql);
+
 			$sql->execute();
 
 			if($sql->rowCount() > 0){
@@ -69,22 +73,14 @@
 			$sql->bindValue(":id_produto", $id_produto);
 			$sql->execute();
 
-			if($sql->rowCount() > 0){
-				$array = $sql->fetchAll();
-			}
+			$this->bindWhere($filters, $sql);
 
 			return $array;
 		}
 
 		public function getTotal($filters = array()){
 
-			$where = array(
-				'1=1'
-			);
-
-			if(!empty($filters['category'])){
-				$where[] = "id_category = :id_category";
-			}
+			$where = $this->buildWhere($filters);
 
 			$sql = "SELECT 
 							COUNT(*) as quantidade 
@@ -102,6 +98,26 @@
 			$sql = $sql->fetch();
 
 			return $sql['quantidade'];
+		}
+
+		private function buildWhere($filters){
+
+			$where = array(
+				'1=1'
+			);
+
+			if(!empty($filters['category'])){
+				$where[] = "id_category = :id_category";
+			}
+
+			return $where;
+		}
+
+		private function bindWhere($filters, &$sql){
+
+			if(!empty($filters['category'])){
+				$sql->bindValue("id_category", $filters['category']);
+			}			
 		}
 	}
  ?>
