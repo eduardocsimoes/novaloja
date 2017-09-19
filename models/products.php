@@ -1,11 +1,21 @@
 <?php 
 	class Products extends model{
 
-		public function getList($offset = 0, $limit = 3, $filters = array()){
+		public function getList($offset = 0, $limit = 3, $filters = array(), $random = false){
 
 			$array = array();
 
 			$where = $this->buildWhere($filters);
+
+			$orderBySQL = '';
+
+			if($orderBySQL == true){
+				$orderBySQL = "ORDER BY RAND()";
+			}
+
+			if(!empty($filters['toprated'])){
+				$orderBySQL = "ORDER BY rating DESC";
+			}
 
 			$sql = "SELECT 
 							* 
@@ -13,6 +23,7 @@
 							products 
 					WHERE	
 							".implode(' AND ', $where)." 
+					".$orderBySQL." 
 					LIMIT 
 							$offset, $limit";
 			$sql = $this->db->prepare($sql);
@@ -255,21 +266,6 @@
 			return $sql['quantidade'];
 		}
 
-		private function bindWhere($filters, &$sql){
-
-			if(!empty($filters['category'])){
-				$sql->bindValue(":id_category", $filters['category']);
-			}
-
-			if(!empty($filters['slider0'])){
-				$sql->bindValue(":slider0", $filters['slider0']);
-			}
-
-			if(!empty($filters['slider1'])){
-				$sql->bindValue(":slider1", $filters['slider1']);
-			}
-		}
-
 		private function buildWhere($filters){
 
 			$where = array(
@@ -292,6 +288,10 @@
 				$where[] = "sale = '1'";
 			}
 
+			if(!empty($filters['featured'])){
+				$where[] = "featured = '1'";
+			}
+
 			if(!empty($filters['options'])){
 				$where[] = "id IN (SELECT id_product FROM products_options WHERE products_options.p_value IN ('".implode("','", $filters['options'])."'))";
 			}
@@ -304,7 +304,31 @@
 				$where[] = "price <= :slider1";
 			}
 
+			if(!empty($filters['searchTerm'])){
+				$where[] = "name LIKE :searchTerm";
+			}
+
 			return $where;
 		}
+
+
+		private function bindWhere($filters, &$sql){
+
+			if(!empty($filters['category'])){
+				$sql->bindValue(":id_category", $filters['category']);
+			}
+
+			if(!empty($filters['slider0'])){
+				$sql->bindValue(":slider0", $filters['slider0']);
+			}
+
+			if(!empty($filters['slider1'])){
+				$sql->bindValue(":slider1", $filters['slider1']);
+			}
+
+			if(!empty($filters['searchTerm'])){
+				$sql->bindValue(":searchTerm", "%".$filters['searchTerm']."%");
+			}			
+		}		
 	}
  ?>

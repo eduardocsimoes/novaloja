@@ -7,21 +7,26 @@ class Filters extends model {
 		$products = new Products();
 
 		$array = array(
-			'brands'    => array(),
-			'slider0'   => 0,
-			'slider1'   => 0,
-			'maxslider' => 1000,
-			'stars'     => array(
-				'0'        => 0,
-				'1'        => 0,
-				'2'        => 0,
-				'3'        => 0,
-				'4'        => 0,
-				'5'        => 0,
+			'searchTerm' => '',
+			'brands'     => array(),
+			'slider0'    => 0,
+			'slider1'    => 0,
+			'maxslider'  => 1000,
+			'stars'      => array(
+				'0'         => 0,
+				'1'         => 0,
+				'2'         => 0,
+				'3'         => 0,
+				'4'         => 0,
+				'5'         => 0,
 			),
 			'sale'   => 0,
 			'option' => array()
 		);
+
+		if (isset($filters['searchTerm'])) {
+			$array['searchTerm'] = $filters['searchTerm'];
+		}
 
 		$array['brands'] = $brands->getList();
 		$brand_products  = $products->getListOfBrands($filters);

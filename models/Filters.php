@@ -7,6 +7,7 @@
 			$products = new Products();
 
 			$array = array(
+				'searchTerm' => '',
 				'brands' => array(),
 				'slider0' => 0,
 				'slider1' => 0,
@@ -21,7 +22,11 @@
 				),
 				'sale' => 0,
 				'option' => array()
-			);	
+			);
+
+			if(isset($filters['searchTerm'])){
+				$array['searchTerm'] = $filters['searchTerm'];
+			}
 
 			$array['brands'] = $brands->getList();
 			$brand_products = $products->getListOfBrands($filters);

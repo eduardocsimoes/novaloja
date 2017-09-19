@@ -43,10 +43,22 @@
 						<div class="head_email">contato@<span>loja2.com.br</span></div>
 						
 						<div class="search_area">
-							<form method="GET">
-								<input type="text" name="s" required placeholder="<?php $this->language->get('SEARCHFORANITEM'); ?>" />
+							<form method="GET" action="<?php echo BASE_URL; ?>busca">
+								<input type="text" name="s" value="<?php echo (!empty($viewData['searchTerm'])) ? $viewData['searchTerm'] : ''; ?>" required placeholder="<?php $this->language->get('SEARCHFORANITEM'); ?>" />
 								<select name="category">
 									<option value=""><?php $this->language->get('ALLCATEGORIES'); ?></option>
+
+									<?php foreach($viewData['categories'] as $categories){ ?>
+										<option value="<?php echo $categories['id']; ?>" <?php echo ($viewData['category'] == $categories['id']) ? "selected='selected'" : ''; ?>><?php echo $categories['name']; ?></option>
+
+										<?php if(count($categories['subs']) > 0){
+											$this->loadView('search_subcategory', array(
+												'subs' => $categories['subs'],
+												'level' => 1,
+												'category' => $viewData['category']
+											));
+										} ?>
+									<?php } ?>									
 								</select>
 								<input type="submit" value="" />
 						    </form>
@@ -107,6 +119,9 @@
 				  		<div class="filterarea">
 
 							<form method="GET">
+
+								<input type="hidden" name="s" value="<?php echo (isset($viewData['searchTerm'])) ? $viewData['searchTerm'] : ''; ?>">
+								<input type="hidden" name="category" value="<?php echo (isset($viewData['category'])) ? $viewData['category'] : ''; ?>">
 
 								<div class="filterbox">
 									<div class="filtertitle">
@@ -231,7 +246,7 @@
 				  		<div class="widget">
 				  			<h1><?php $this->language->get('FEATUREPRODUCTS'); ?></h1>
 				  			<div class="widget_body">
-				  				...
+				  				<?php $this->loadView('widget_item', array('list' => $viewData['widget_featured1'])); ?>
 				  			</div>
 				  		</div>
 				  	</aside>
@@ -247,7 +262,7 @@
 				  	<div class="widget">
 			  			<h1><?php $this->language->get('FEATUREPRODUCTS'); ?></h1>
 			  			<div class="widget_body">
-			  				...
+			  				<?php $this->loadView('widget_item', array('list' => $viewData['widget_featured2'])); ?>
 			  			</div>
 			  		</div>
 				  </div>
@@ -255,7 +270,7 @@
 				  	<div class="widget">
 			  			<h1><?php $this->language->get('ONSALEPRODUCTS'); ?></h1>
 			  			<div class="widget_body">
-			  				...
+							<?php $this->loadView('widget_item', array('list' => $viewData['widget_sale'])); ?>
 			  			</div>
 			  		</div>
 				  </div>
@@ -263,7 +278,7 @@
 				  	<div class="widget">
 			  			<h1><?php $this->language->get('TOPRATEDPRODUCTS'); ?></h1>
 			  			<div class="widget_body">
-			  				...
+			  				<?php $this->loadView('widget_item', array('list' => $viewData['widget_toprated'])); ?>
 			  			</div>
 			  		</div>
 				  </div>
@@ -273,10 +288,11 @@
 	    		<div class="container">
 	    			<div class="row">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-							<form method="POST">
-                                <input class="subemail" name="email" placeholder="<?php $this->language->get('SUBSCRIBETEXT'); ?>">
-                                <input type="submit" value="<?php $this->language->get('SUBSCRIBEBUTTON'); ?>" />
-                            </form>
+							<form action="//b7web.us2.list-manage.com/subscribe/post?u=0d44bd14b441c2648668c0c5c&amp;id=156305bc7f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+							    <input type="email" value="" name="EMAIL" class="subemail required email" id="mce-EMAIL" placeholder="<?php $this->language->get('SUBSCRIBETEXT'); ?>">
+								<input type="hidden" name="b_0d44bd14b441c2648668c0c5c_156305bc7f" tabindex="-1" value="">
+							    <input type="submit" value="<?php $this->language->get('SUBSCRIBEBUTTON'); ?>" name="subscribe" id="mc-embedded-subscribe" class="button">
+							</form>
 						</div>
 					</div>
 	    		</div>
