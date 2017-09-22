@@ -328,5 +328,29 @@ $offset, $limit";
 			$sql->bindValue(":searchTerm", "%".$filters['searchTerm']."%");
 		}
 	}
+
+	public function getProductInfo($id) {
+
+		$array = array();
+
+		if (!empty($id)) {
+			$sql = "SELECT * FROM products WHERE id = :id";
+			$sql = $this->db->prepare($sql);
+			$sql->bindValue(":id", $id);
+			$sql->execute();
+
+			if ($sql->rowCount() > 0) {
+				$array = $sql->fetch();
+
+				$brands     = new Brands();
+				$categories = new Categories();
+
+				$array['brand_name']    = $brands->getNameById($array['id_brand']);
+				$array['category_name'] = $categories->getNameById($array['id_category']);
+			}
+		}
+
+		return $array;
+	}
 }
 ?>
