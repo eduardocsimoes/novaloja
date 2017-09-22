@@ -114,13 +114,13 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Copiando dados para a tabela nova_loja.products: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `id_category`, `id_brand`, `name`, `description`, `stock`, `price`, `price_from`, `rating`, `featured`, `sale`, `bestseller`, `new_product`, `options`) VALUES
-	(1, 6, 1, 'Monitor 21 polegadas', 'Alguma descrição do produto.', 10, 499, 599, 0, 0, 1, 1, 0, '1,2,4'),
-	(2, 6, 2, 'Monitor 18 polegadas', 'Alguma outra descrição', 10, 399, 999, 2, 0, 1, 1, 0, '1,2'),
+	(1, 6, 1, 'Monitor 21 polegadas', 'Alguma descrição do produto.', 10, 499, 599, 0, 1, 1, 1, 0, '1,2,4'),
+	(2, 6, 2, 'Monitor 18 polegadas', 'Alguma outra descrição', 10, 399, 999, 2, 1, 1, 1, 0, '1,2'),
 	(3, 6, 2, 'Monitor 19 polegadas', 'Alguma outra descrição', 10, 599, 699, 0, 0, 0, 0, 1, '1,2'),
-	(4, 6, 3, 'Monitor 17 polegadas', 'Alguma outra descrição', 10, 3779, 900, 2, 0, 0, 0, 0, '1,4'),
-	(5, 6, 1, 'Monitor 20 polegadas', 'Alguma outra descrição', 10, 299, 499, 0, 0, 0, 0, 1, '1'),
+	(4, 6, 3, 'Monitor 17 polegadas', 'Alguma outra descrição', 10, 3779, 900, 2, 1, 0, 0, 0, '1,4'),
+	(5, 6, 1, 'Monitor 20 polegadas', 'Alguma outra descrição', 10, 299, 499, 0, 1, 0, 0, 1, '1'),
 	(6, 6, 3, 'Monitor 20 polegadas', 'Alguma outra descrição', 10, 699, 0, 0, 0, 0, 0, 0, '1,2,4'),
-	(7, 6, 3, 'Monitor 19 polegadas', 'Alguma outra descrição', 10, 889, 999, 5, 0, 0, 0, 0, '2,4'),
+	(7, 6, 3, 'Monitor 19 polegadas', 'Alguma outra descrição', 10, 889, 999, 5, 1, 1, 0, 0, '2,4'),
 	(8, 6, 1, 'Monitor 18 polegadas', 'Alguma outra descrição', 10, 599, 699, 0, 0, 0, 0, 0, '4');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
@@ -142,7 +142,10 @@ INSERT INTO `products_images` (`id`, `id_product`, `url`) VALUES
 	(5, 5, '1.jpg'),
 	(6, 6, '3.jpg'),
 	(7, 7, '7.jpg'),
-	(8, 8, '7.jpg');
+	(8, 8, '7.jpg'),
+	(9, 2, '3.jpg'),
+	(10, 2, '4.jpg'),
+	(11, 2, '7.jpg');
 /*!40000 ALTER TABLE `products_images` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela nova_loja.products_options
