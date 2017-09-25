@@ -8,11 +8,14 @@
 	    }
 
 	    public function index() {
-	        $dados = array();
+
+	    	$store = new Store();
 
 	        $products = new Products();
 	        $categories = new categories();
 	        $filters = new Filters();
+
+	        $dados = $store->getTemplateData();
 
 	        if(!empty($_GET['s'])){
 	        	$searchTerm = $_GET['s'];
@@ -41,12 +44,13 @@
 		        $dados['numberOfPages'] = ceil($dados['totalItems'] / $limit);
 		        $dados['currentPage'] = $currentPage;
 
-		        $dados['categories'] = $categories->getList();
 		        $dados['filters'] = $filters->getFilters($filter);
 		        $dados['filters_selected'] = $filter;
 
 		        $dados['searchTerm'] = $searchTerm;
 		        $dados['category'] = $category;
+
+		        $dados['sidebar'] = true;
 
 		        $this->loadTemplate('busca', $dados);
 		    }else{

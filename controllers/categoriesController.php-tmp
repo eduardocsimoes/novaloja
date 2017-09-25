@@ -14,10 +14,12 @@ class categoriesController extends controller {
 
 	public function enter($id_category) {
 
-		$dados = array();
-
+		$store      = new Store();
 		$categories = new Categories();
 		$products   = new Products();
+		$filters    = new Filters();
+
+		$dados = $store->getTemplateData();
 
 		$dados['categories']    = $categories->getList();
 		$dados['category_name'] = $categories->getCategoryName($id_category);
@@ -33,18 +35,24 @@ class categoriesController extends controller {
 
 			$offset = ($currentPage*$limit)-$limit;
 
-			$filters = array('category' => $id_category);
+			$filter = array('category' => $id_category);
 
-			$dados['list']          = $products->getList($offset, $limit, $filters);
-			$dados['totalItems']    = $products->getTotal($filters);
+			$dados['list']          = $products->getList($offset, $limit, $filter);
+			$dados['totalItems']    = $products->getTotal($filter);
 			$dados['numberOfPages'] = ceil($dados['totalItems']/$limit);
 			$dados['currentPage']   = $currentPage;
 
 			$dados['id_category'] = $id_category;
 
+			$dados['filters']          = $filters->getFilters($filter);
+			$dados['filters_selected'] = $filter;
+
+			$dados['searchTerm'] = '';
+			$dados['category']   = '';
+
 			$dados['category_filter'] = $categories->getCategoryTree($id_category);
 
-			$dados['categories'] = $categories->getList();
+			$dados['sidebar'] = true;
 
 			$this->loadTemplate('categories', $dados);
 		} else {
