@@ -52,7 +52,7 @@
 
 			$array = array();
 
-			$sql = "SELECT name, price FROM products WHERE id = :id";
+			$sql = "SELECT * FROM products WHERE id = :id";
 			$sql = $this->db->prepare($sql);
 
 			$sql->bindValue(":id", $id);

@@ -20,7 +20,50 @@
 			</tr>
 	<?php }?>
 	<tr>
-		<td colspan="3" align="right">Sub-Total</td>
+		<td colspan="3" align="right">Sub-Total: </td>
 		<td><strong>R$ <?php echo number_format($subtotal, 2, ',', '.');?></strong></td>
 	</tr>
+	<tr>
+		<td colspan="3" align="right">Frete: </td>
+		<td>
+<?php if (isset($shipping['price'])) {?>
+					<strong>R$ <?php echo $shipping['price'];
+	?></strong> (<?php echo $shipping['date'];echo ($shipping['date'] == 1)?' dia':'dias';?>)
+	<?php } else {?>
+	<form method="POST">
+						<input type="number" name="cep" placeholder="Qual o seu cep?">
+						<input type="submit" value="Calcular">
+					</form>
+	<?php }?>
+</td>
+	</tr>
+	<tr>
+		<td colspan="3" align="right">Total: </td>
+		<td>
+			<strong>
+<?php
+if (isset($shipping['price'])) {
+	$frete = floatval(str_replace(',', '.', $shipping['price']));
+} else {
+	$frete = 0;
+}
+
+$total = $subtotal+$frete;
+?>
+				R$ <?php echo number_format($total, 2, ',', '.');?>
+</strong>
+		</td>
+	</tr>
 </table>
+
+<hr>
+
+<?php if ($frete > 0) {?>
+		<form method="POST" action="<?php echo BASE_URL;?>cart/payment_redirect" style="float:right">
+			<select name="payment_type">
+				<option value="checkout_transparente">Pagseguro Checkout Transparente</option>
+			</select>
+
+			<input type="submit" value="Finalizar Compra" class="button">
+		</form>
+	<?php }?>
