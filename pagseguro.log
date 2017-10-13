@@ -176,3 +176,12 @@
 10/10/2017 22:17:45 PagSeguro.Session[info]: Begin
 10/10/2017 22:17:45 PagSeguro.Session[info]: POST: https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=eduardocsimoes81%40gmail.com&token=580380B6D56D451283706B86EAFD30BD
 10/10/2017 22:17:46 PagSeguro.Session[info]: Session ID: dcf59bee06e8470bb6ddc27f1f410a87
+10/10/2017 22:54:34 PagSeguro.Session[info]: Begin
+10/10/2017 22:54:34 PagSeguro.Session[info]: POST: https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=eduardocsimoes81%40gmail.com&token=580380B6D56D451283706B86EAFD30BD
+10/10/2017 22:54:36 PagSeguro.Session[info]: Session ID: 1d8fbbe94ae94cecafc6e125f8f0c294
+11/10/2017 21:24:53 PagSeguro.Session[info]: Begin
+11/10/2017 21:24:54 PagSeguro.Session[info]: POST: https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=eduardocsimoes81%40gmail.com&token=580380B6D56D451283706B86EAFD30BD
+11/10/2017 21:24:58 PagSeguro.Session[info]: Session ID: a515b887505f46a2a4fa2f8d853592b7
+13/10/2017 17:27:03 PagSeguro.Session[info]: Begin
+13/10/2017 17:27:05 PagSeguro.Session[info]: POST: https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=eduardocsimoes81%40gmail.com&token=580380B6D56D451283706B86EAFD30BD
+13/10/2017 17:27:09 PagSeguro.Session[info]: Session ID: 4e93508f1d5d4decacac62c6cdf7a6f3
